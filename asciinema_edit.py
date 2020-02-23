@@ -10,6 +10,7 @@ logger = logging.getLogger(__file__)
 
 logger.setLevel(logging.INFO)
 
+
 class Recording:
     def __init__(self, infile, outfname=None):
         self.infile = infile
@@ -20,7 +21,6 @@ class Recording:
         lines = self.infile.readlines()
         self.header = lines[0].strip()
         self.body = [json.loads(line) for line in lines[1:]]
-        print("Body lines: ", len(self.body))
 
     def write(self, startidx=0, endidx=None):
         if not endidx:
@@ -233,7 +233,6 @@ if __name__ == '__main__':
     parser.add_argument("inputfile", help="Input .cast file")
 
     args = parser.parse_args()
-    print(args)
 
     if args.range and (args.start or args.end):
         assert "Must supply either --range or start/end!"
