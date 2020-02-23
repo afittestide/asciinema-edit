@@ -238,7 +238,7 @@ if __name__ == '__main__':
     if args.range and (args.start or args.end):
         assert "Must supply either --range or start/end!"
 
-    with open(args.inputfiles) as infile:
+    with open(args.inputfile) as infile:
         r = Recording(infile, args.out)
 
     ranges = []
