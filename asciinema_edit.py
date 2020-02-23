@@ -6,8 +6,6 @@ import logging
 from pprint import pprint
 import sys
 
-import pysnooper
-
 logger = logging.getLogger(__file__)
 
 logger.setLevel(logging.INFO)
@@ -136,23 +134,21 @@ class Recording:
     def del_in_word(self, to_delete):
         """ Delete a word """
 
-        with pysnooper.snoop():
-            word = ''
-            word_start_i = 0
-            for i, e in enumerate(self.body):
-                c = e[2]
-                if e[1] == 'i' and c.isalnum():
-                    if not word:
-                        word_start = i
-                    word += c
-                    continue
-                # it's not an input or not alphanumberic char
-                if word:
-                    print(f"got word {word}")
-                    if word == to_delete:
-                        for j in range(len(word)):
-                            del self.body[word_start]
-                    word = ''
+        word = ''
+        word_start_i = 0
+        for i, e in enumerate(self.body):
+            c = e[2]
+            if e[1] == 'i' and c.isalnum():
+                if not word:
+                    word_start = i
+                word += c
+                continue
+            # it's not an input or not alphanumberic char
+            if word:
+                if word == to_delete:
+                    for j in range(len(word)):
+                        del self.body[word_start]
+                word = ''
 
     def print_stdin(self, range):
         """ Prints the recorded stdin """
